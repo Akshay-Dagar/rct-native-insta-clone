@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { View, Button, TextInput, Text, StyleSheet } from 'react-native'
+import { useDispatch } from 'react-redux'
+import api from '../../api'
 
 const Login = ({navigation}) => {
   const [formData, setFormData] = useState({username: "", password: ""})
+  const dispatch = useDispatch()
 
   const handleSubmit = () => {
-    
+    dispatch(api.login(formData))
   }
 
   return (
