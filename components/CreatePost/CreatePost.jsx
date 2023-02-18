@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
 import { View, Image, TextInput, Button, StyleSheet, Text } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import api from '../../api'
+import { imgToBase64 } from '../../utils'
 
 const CreatePost = (props) => {
-  const [formData, setFormData] = useState({caption: "", tags: [], image: props.route.params.imgUrl})
+  const [formData, setFormData] = useState({caption: "", tags: []})
+  const userId = useSelector(state => state.user?.value?.id)
+  const dispatch = useDispatch()
+
+
   const handleSubmit = async () => {
-    const res = await fetch(props.route.params.imgUrl)
-    const blob = await res.blob()
-    console.log(blob);
+    const base64Img = await imgToBase64(props.route.params.imgUrl)
+    dispatch(api.createPost({...formData, image: base64Img, userId: userId}))
   }
 
   return (
@@ -28,7 +34,7 @@ const CreatePost = (props) => {
         {formData.tags && formData.tags.map(tag => (
             <Text>#{tag}</Text>
         ))} */}
-        <Button title="Create Post" onPress={handleSubmit} disabled={!formData || formData.caption==="" || !formData.image}/>
+        <Button title="Create Post" onPress={handleSubmit} disabled={!formData || formData.caption==="" }/>
     </View>
   )
 }
