@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Button, StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useWindowDimensions } from "react-native";
@@ -7,9 +7,15 @@ import { useWindowDimensions } from "react-native";
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  const [cam, setCam] = useState(null)
 
   const {width} = useWindowDimensions();
-  const height = Math.round((width * 16) / 9);
+
+  const capture = async () => {
+    if (cam) {
+      const data = await cam.takePictureAsync(null)
+    }
+  }
 
   useEffect(() => {
     (async () => {
@@ -25,20 +31,12 @@ export default function App() {
     return <Text>The App doesn't have access to your camera</Text>;
   }
   return (
-    <View style={{ flex: 1 }}>
-      <Camera style={{ height: height, width: "100%" }} type={type} ratio="16:9" >
+    <View style={styles.container}>
+      <Camera style={{ height: Math.round((width * 16) / 9), width: "100%" }} type={type} ratio="16:9" ref={c => setCam(c)}>
         <View
-          style={{
-            flex: 1,
-            backgroundColor: 'transparent',
-            flexDirection: 'row',
-          }}>
+          style={styles.buttonContainer}>
           <TouchableOpacity
-            style={{
-              flex: 0.1,
-              alignSelf: 'flex-end',
-              alignItems: 'center',
-            }}
+            style={{left: 150, bottom: 10}}
             onPress={() => {
               setType(
                 type === Camera.Constants.Type.back
@@ -46,8 +44,15 @@ export default function App() {
                   : Camera.Constants.Type.back
               );
             }}>
-            <Text style={{ fontSize: 18, marginBottom: 120, marginLeft: 5, color: 'white' }}>
+            <Text style={styles.flipIcon}>
               <Icon name='camera-flip' size={30} />
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{position: 'absolute'}}
+            onPress={capture}>
+            <Text style={styles.captureIcon}>
+              <Icon name='circle' size={70}/>
             </Text>
           </TouchableOpacity>
         </View>
@@ -55,3 +60,26 @@ export default function App() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { 
+    flex: 1 
+  },
+  buttonContainer: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  },
+  captureIcon: { 
+    fontSize: 18,
+    marginBottom: 110,
+    color: 'white' 
+  },
+  flipIcon: {
+    fontSize: 18,
+    marginBottom: 120,
+    color: 'white' 
+  }
+})
