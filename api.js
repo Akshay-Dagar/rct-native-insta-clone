@@ -1,5 +1,5 @@
 import { setUser } from "./reducers/user"
-import { setPosts } from "./reducers/posts"
+import { setNewsFeed } from "./reducers/newsfeed"
 import { setMessage } from './reducers/message'
 
 const endpoint = "http://192.168.29.142:5000/api"
@@ -52,7 +52,7 @@ const getNewsFeed = () => async dispatch => {
     
         const data = await res.json()
         if (res.status === 200) {
-            dispatch(setPosts(data))
+            dispatch(setNewsFeed(data))
         } else {
             throw res.status
         }

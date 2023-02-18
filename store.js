@@ -3,6 +3,7 @@ import * as reducers from './reducers'
 
 export default configureStore({
   reducer: {
-    user: reducers.userReducer
+    user: reducers.userReducer,
+    newsfeed: reducers.newsfeedReducer
   }
 })

@@ -11,7 +11,7 @@ import CreatePost from './CreatePost/CreatePost';
 const Stack = createStackNavigator()
 
 const Home = () => {
-    const user = useSelector(state => state.user.value)     //cant be used outside provider store
+  const user = useSelector(state => state.user.value)
 
   if (!user) {
     return (
