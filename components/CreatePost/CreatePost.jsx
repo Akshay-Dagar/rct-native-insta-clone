@@ -1,85 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity, Button, StyleSheet } from 'react-native';
-import { Camera } from 'expo-camera';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { useWindowDimensions } from "react-native";
+import React, { useState } from 'react'
+import { View, Image, TextInput, Button, StyleSheet, Text } from 'react-native'
 
-export default function App() {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
-  const [cam, setCam] = useState(null)
-
-  const {width} = useWindowDimensions();
-
-  const capture = async () => {
-    if (cam) {
-      const data = await cam.takePictureAsync(null)
-    }
+const CreatePost = (props) => {
+  const [formData, setFormData] = useState({caption: "", tags: [], image: props.route.params.imgUrl})
+  const handleSubmit = async () => {
+    const res = await fetch(props.route.params.imgUrl)
+    const blob = await res.blob()
+    console.log(blob);
   }
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === 'granted');
-    })();
-  }, []);
-
-  if (hasPermission === null) {
-    return <View />;
-  }
-  if (hasPermission === false) {
-    return <Text>The App doesn't have access to your camera</Text>;
-  }
   return (
     <View style={styles.container}>
-      <Camera style={{ height: Math.round((width * 16) / 9), width: "100%" }} type={type} ratio="16:9" ref={c => setCam(c)}>
-        <View
-          style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={{left: 150, bottom: 10}}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              );
-            }}>
-            <Text style={styles.flipIcon}>
-              <Icon name='camera-flip' size={30} />
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{position: 'absolute'}}
-            onPress={capture}>
-            <Text style={styles.captureIcon}>
-              <Icon name='circle' size={70}/>
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </Camera>
+        <Image source={{uri: props.route.params.imgUrl}} style={styles.image} />
+        <TextInput 
+          placeholder='Write a caption for your image' 
+          onChangeText={txt => {setFormData({...formData, caption: txt})}} 
+          style={styles.input}
+        />
+        {/* <TextInput 
+          placeholder='Add a tag for your post'
+          style={styles.input}
+          onEndEditing={e => {
+
+          }}
+          onChangeText={txt => {setFormData({...formData, tags: [...formData.tags, txt]})}} 
+        />
+        {formData.tags && formData.tags.map(tag => (
+            <Text>#{tag}</Text>
+        ))} */}
+        <Button title="Create Post" onPress={handleSubmit} disabled={!formData || formData.caption==="" || !formData.image}/>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1 
+  container: {
+    flex: 1
   },
-  buttonContainer: {
-    flex: 1,
-    backgroundColor: 'transparent',
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'center',
+  image: {
+    width: '100%',
+    height: '50%'
   },
-  captureIcon: { 
-    fontSize: 18,
-    marginBottom: 110,
-    color: 'white' 
-  },
-  flipIcon: {
-    fontSize: 18,
-    marginBottom: 120,
-    color: 'white' 
+  input: {
   }
 })
+
+export default CreatePost

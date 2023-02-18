@@ -1,7 +1,6 @@
 import React from 'react'
 import NewsFeed from "../NewsFeed/NewsFeed";
 import Profile from "../Profile/Profile";
-import CreatePost from "../CreatePost/CreatePost";
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
@@ -20,7 +19,7 @@ const Navbar = () => {
           listeners={({ navigation }) => ({
               tabPress: event => {
                   event.preventDefault();
-                  navigation.navigate("CreatePost")
+                  navigation.navigate("Capture")
               }
           })}
           options={{tabBarIcon: props => (<Icon name="plus" size={30} color={props.color}/>)}}

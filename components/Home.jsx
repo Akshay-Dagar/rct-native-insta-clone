@@ -5,7 +5,8 @@ import Login from './Auth/Login';
 import Signup from './Auth/Signup';
 import { useSelector } from 'react-redux';
 import Navbar from './Navbar/Navbar';
-import CreatePost from './CreatePost/CreatePost'
+import CaptureImage from './CreatePost/CaptureImage';
+import CreatePost from './CreatePost/CreatePost';
 
 const Stack = createStackNavigator()
 
@@ -27,7 +28,8 @@ const Home = () => {
       <NavigationContainer>
         <Stack.Navigator initialRouteName='Navbar'>
           <Stack.Screen name='Navbar' component={Navbar} options={{headerShown: false}} />
-          <Stack.Screen name='CreatePost' component={CreatePost} />
+          <Stack.Screen name='Capture' component={CaptureImage} />
+          <Stack.Screen name='Create Post' component={CreatePost} />
         </Stack.Navigator>
       </NavigationContainer>
   )
