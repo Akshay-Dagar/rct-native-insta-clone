@@ -167,6 +167,20 @@ const createComment = comment => async dispatch => {
     }
 }
 
+// Like a post
+const likePost = postId => async dispatch => {
+    try {
+        const url = `${endpoint}/post/${postId}/like`
+        const res = await fetch(url)
 
-const api = { login, createPost, getNewsFeed, ping, getPosts, getComments, createComment, signup, login }
+        if (res.status !== 200) {
+            throw res.status
+        }
+    }
+    catch (err) {
+        dispatch(setMessage({value: "Failed to like post - Something went wrong", type: "Error"}))
+    }
+}
+
+const api = { login, createPost, getNewsFeed, ping, getPosts, getComments, createComment, signup, login, likePost }
 export default api
