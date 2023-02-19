@@ -11,9 +11,9 @@ const CreatePost = ({route, navigation}) => {
 
 
   const handleSubmit = async () => {
-    // const base64Img = await imgToBase64(route.params.imgUrl)
-    // dispatch(api.createPost({...formData, image: base64Img, userId: userId}))
-    // navigation.navigate('Profile', {selectedUserId: userId})
+    const base64Img = await imgToBase64(route.params.imgUrl)
+    dispatch(api.createPost({...formData, image: base64Img, userId: userId}))
+    navigation.navigate('Profile', {selectedUserId: userId})
   }
 
   return (

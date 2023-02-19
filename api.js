@@ -95,7 +95,7 @@ const getPosts = (userId = undefined) => async dispatch => {
     
         const data = await res.json()
         if (res.status === 200) {
-            dispatch(setPosts(data))
+            dispatch(setPosts([data]))
         } else {
             throw res.status
         }
