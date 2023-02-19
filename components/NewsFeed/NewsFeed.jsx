@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import api from '../../api'
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import PostThumb from './PostThumb'
 
-const NewsFeed = () => {
+const NewsFeed = ({navigation}) => {
   const newsfeed = useSelector(state => state.newsfeed.value)
   const dispatch = useDispatch()
 
@@ -13,11 +13,11 @@ const NewsFeed = () => {
   }, [])
 
   return (
-    <View>
-      {newsfeed?.map(post => (
-        <PostThumb post={post}/>
+    <ScrollView>
+      {newsfeed?.map((post, idx) => (
+        <PostThumb post={post} key={`post-${idx}`} navigation={navigation}/>
       ))}
-    </View>
+    </ScrollView>
   )
 }
 

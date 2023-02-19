@@ -1,9 +1,9 @@
 import React from 'react'
 import { TouchableOpacity, View, Image, Text } from 'react-native'
 
-const PostThumb = ({post}) => {
+const PostThumb = ({post, navigation}) => {
   return (
-    <TouchableOpacity onPress={null}>
+    <TouchableOpacity onPress={() => navigation.navigate("Post", {post})}>
         <Image source={{uri: post.image}} style={{height: '30%', width: '90%'}}/>
         <Text>{post.caption}</Text>
     </TouchableOpacity>

@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 import Navbar from './Navbar/Navbar';
 import CaptureImage from './CreatePost/CaptureImage';
 import CreatePost from './CreatePost/CreatePost';
+import Profile from './Profile/Profile'
+import Post from './Post/Post'
 
 const Stack = createStackNavigator()
 
@@ -30,6 +32,8 @@ const Home = () => {
           <Stack.Screen name='Navbar' component={Navbar} options={{headerShown: false}} />
           <Stack.Screen name='Capture' component={CaptureImage} />
           <Stack.Screen name='Create Post' component={CreatePost} />
+          <Stack.Screen name='Profile' component={Profile} />
+          <Stack.Screen name='Post' component={Post} />
         </Stack.Navigator>
       </NavigationContainer>
   )

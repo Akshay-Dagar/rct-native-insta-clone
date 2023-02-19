@@ -4,20 +4,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import api from '../../api'
 import { imgToBase64 } from '../../utils'
 
-const CreatePost = (props) => {
+const CreatePost = ({route, navigation}) => {
   const [formData, setFormData] = useState({caption: "", tags: []})
-  const userId = useSelector(state => state.user?.value?.id)
+  const userId = useSelector(state => state.user?.value?.userId)
   const dispatch = useDispatch()
 
 
   const handleSubmit = async () => {
-    const base64Img = await imgToBase64(props.route.params.imgUrl)
+    const base64Img = await imgToBase64(route.params.imgUrl)
     dispatch(api.createPost({...formData, image: base64Img, userId: userId}))
+    navigation.navigate('Profile', {selectedUserId: userId})
   }
 
   return (
     <View style={styles.container}>
-        <Image source={{uri: props.route.params.imgUrl}} style={styles.image} />
+        <Image source={{uri: route.params.imgUrl}} style={styles.image} />
         <TextInput 
           placeholder='Write a caption for your image' 
           onChangeText={txt => {setFormData({...formData, caption: txt})}} 

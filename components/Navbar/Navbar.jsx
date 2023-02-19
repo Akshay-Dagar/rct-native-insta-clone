@@ -3,6 +3,7 @@ import NewsFeed from "../NewsFeed/NewsFeed";
 import Profile from "../Profile/Profile";
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { useSelector } from 'react-redux';
 
 const Tab = createMaterialBottomTabNavigator()
 
@@ -11,6 +12,7 @@ const EmptyScreen = () => {
 }
 
 const Navbar = () => {
+  const user = useSelector(state => state.user.value)
   return (
     <Tab.Navigator initialRouteName="NewsFeed" labeled={false} shifting={false} inactiveColor="#fff" barStyle={{ backgroundColor: '#000' }} >
         <Tab.Screen 
@@ -25,7 +27,7 @@ const Navbar = () => {
           options={{tabBarIcon: props => (<Icon name="plus" size={30} color={props.color}/>)}}
         />
         <Tab.Screen name="NewsFeed" component={NewsFeed} options={{tabBarIcon: props => (<Icon name="home" size={30} color={props.color}/>)}} />
-        <Tab.Screen name="Profile" component={Profile} options={{tabBarIcon: props => (<Icon name="user" size={30} color={props.color}/>)}} />
+        <Tab.Screen name="Profile" component={Profile} initialParams={{selectedUserId: user.userId}} options={{tabBarIcon: props => (<Icon name="user" size={30} color={props.color}/>)}} />
     </Tab.Navigator>
   )
 }

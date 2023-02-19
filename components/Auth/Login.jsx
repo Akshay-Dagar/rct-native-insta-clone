@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import api from '../../api'
 
 const Login = ({navigation}) => {
-  const [formData, setFormData] = useState({username: "", password: ""})
+  const [formData, setFormData] = useState({userId: "", password: ""})
   const dispatch = useDispatch()
 
   const handleSubmit = () => {
@@ -13,7 +13,7 @@ const Login = ({navigation}) => {
 
   return (
     <View style={LoginStyles}>
-        <TextInput placeholder='username' onChangeText={txt => setFormData({...formData, username: txt})} />
+        <TextInput placeholder='username' onChangeText={txt => setFormData({...formData, userId: txt})} />
         <TextInput 
             placeholder='password' 
             onChangeText={txt => setFormData({...formData, password: txt})} 
@@ -22,7 +22,7 @@ const Login = ({navigation}) => {
         <Button 
           onPress={handleSubmit} 
           title='Login' 
-          disabled={formData.username === "" || formData.password === ""} 
+          disabled={formData.userId === "" || formData.password === ""} 
         />
         <Text>OR</Text>
         <Button title='Sign Up' onPress={() => navigation.navigate("Signup")} />
