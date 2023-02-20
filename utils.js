@@ -1,3 +1,10 @@
+import { ToastAndroid } from 'react-native';
+
+// Display the toast message for 3 seconds
+export const showToast = (message) => {
+  ToastAndroid.show(message, ToastAndroid.CENTER);
+};
+
 export const imgToBase64 = async imgUrl => {
     const response = await fetch(imgUrl);
     const data = await response.blob();

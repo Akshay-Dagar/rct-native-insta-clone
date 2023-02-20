@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import { Text, StyleSheet, FlatList, Image, View, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { Text, StyleSheet, FlatList, Image, View, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import api from '../../api'
 
-const Profile = ({route}) => {
+const Profile = ({route, navigation}) => {
   const userPosts = useSelector(state => state.posts.value)
   const dispatch = useDispatch()
 
@@ -15,45 +15,58 @@ const Profile = ({route}) => {
   
   
   return (
-    <View styles={styles.container}>
+    <ScrollView styles={styles.container}>
       <View styles={styles.detailsContainer}>
         <Image source={require('../../assets/favicon.png')} style={styles.profileImage}/>
-        <Text style={{fontSize: 30, fontStyle: 'italic'}}>{selectedUserId}</Text>
-        <Text style={{fontSize: 25}}>1.2K</Text>
+        <Text style={{fontSize: 30, fontStyle: 'italic', alignSelf: 'center'}}>{selectedUserId}</Text>
+        <Text style={{fontSize: 15, alignSelf: 'center'}}>1.2K Followers</Text>
       </View>
       {!userPosts && <ActivityIndicator size={50} color="#000" style={styles.spinner} />}
+      {userPosts && <Text style={{borderColor: 'rgba(0, 0, 0, 0.08)', borderTopWidth: 1, marginTop: 40}} />}
+      {userPosts && <Text style={styles.postsHeader}>Posts</Text>}
       <FlatList 
         numColumns={3}
         horizontal={false}
         data={userPosts}
+        style={styles.userPostsContainer}
         renderItem={({item}) => {
           return (
             <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {navigation.navigate("Post", {post: item})}}
+              >
                 <Image 
                   source={{uri: item.image}}
                   style={styles.thumb}
                 />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {navigation.navigate("Post", {post: item})}}
+              >
                 <Image 
                   source={{uri: item.image}}
                   style={styles.thumb}
                 />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {navigation.navigate("Post", {post: item})}}
+              >
                 <Image 
                   source={{uri: item.image}}
                   style={styles.thumb}
                 />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {navigation.navigate("Post", {post: item})}}
+              >
                 <Image 
                   source={{uri: item.image}}
                   style={styles.thumb}
                 />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {navigation.navigate("Post", {post: item})}}
+              >
                 <Image 
                   source={{uri: item.image}}
                   style={styles.thumb}
@@ -65,17 +78,12 @@ const Profile = ({route}) => {
         }}
       >
       </FlatList>
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 40,
-    marginHorizontal: 40,
-    backgroundColor: 'black'
-  },
+  container: {},
   thumb: {
     height: 100,
     width: 100,
@@ -88,17 +96,22 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     height: 80,
     width: 80,
-    marginVertical: 40,
-    marginHorizontal: 10
+    marginTop: 50,
+    marginBottom: 20,
+    marginHorizontal: 10,
+    alignSelf: 'center'
   },
   spinner: {
     marginTop: 100
   },
-  detailsContainer: {
-    display: 'flex',
-    flexDirection: 'column',
+  detailsContainer: {},
+  userPostsContainer: {
+    marginVertical: 20
+  },
+  postsHeader: {
     marginHorizontal: 10,
-    alignItems: 'center'
+    fontSize: 22,
+    marginTop: 30
   }
 })
 

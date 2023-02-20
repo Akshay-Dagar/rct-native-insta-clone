@@ -1,8 +1,10 @@
-import { setUser } from "./reducers/user"
+import { setUser, userFetchEnd } from "./reducers/user"
 import { setNewsFeed } from "./reducers/newsfeed"
 import { setMessage } from './reducers/message'
 import { setPosts } from './reducers/posts'
 import { addComment, setComments } from './reducers/comments'
+import { ToastAndroid } from 'react-native';
+import { showToast } from "./utils"
 
 const endpoint = "http://192.168.29.142:5000/api"
 
@@ -42,7 +44,8 @@ const login = userData => async dispatch => {
         }
     }
     catch (err) {
-        dispatch(setMessage({value: "Login Failed", type: "Error"}))
+        dispatch(userFetchEnd())
+        showToast("Login Failed, please check your credentials and try again")
     }
 }
 
@@ -65,7 +68,8 @@ const signup = userData => async dispatch => {
         }
     }
     catch (err) {
-        dispatch(setMessage({value: "Login Failed", type: "Error"}))
+        dispatch(userFetchEnd())
+        showToast("Signup Failed, please try again")
     }
 }
 

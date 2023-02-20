@@ -9,11 +9,19 @@ import CaptureImage from './CreatePost/CaptureImage';
 import CreatePost from './CreatePost/CreatePost';
 import Profile from './Profile/Profile'
 import Post from './Post/Post'
+import { ActivityIndicator } from 'react-native';
 
 const Stack = createStackNavigator()
 
 const Home = () => {
   const user = useSelector(state => state.user.value)
+  const isFetchingUser = useSelector(state => state.user.loading)
+
+  if (isFetchingUser) {
+    return (
+      <ActivityIndicator size={50} color="#000" style={{alignSelf: 'center', marginTop: 100}} />
+    )
+  }
 
   if (!user) {
     return (

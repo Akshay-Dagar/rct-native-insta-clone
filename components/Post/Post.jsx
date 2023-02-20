@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   image: {
-    height: 700,
+    height: 400,
     width: '100%',
     resizeMode: 'cover'
   },
