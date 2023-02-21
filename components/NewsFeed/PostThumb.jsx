@@ -3,6 +3,7 @@ import { TouchableOpacity, Image, Text, StyleSheet, View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useDispatch } from 'react-redux'
 import api from '../../api'
+import { profileImageRandomizer } from '../../utils'
 
 const PostThumb = ({post, navigation}) => {
   const [likes, setLikes] = useState(post.likes)
@@ -21,7 +22,7 @@ const PostThumb = ({post, navigation}) => {
         <Image source={{uri: post.image}} style={styles.thumb}/>
       </TouchableOpacity>
       <View style={styles.details}>
-        <Image source={require('../../assets/favicon.png')} style={styles.profileImage}/>
+        <Image source={profileImageRandomizer()} style={styles.profileImage}/>
         <Text style={styles.caption}>{post.caption}</Text>
         <View style={styles.likes}>
           <Icon name={liked ? "heart" : "heart-outline"} size={25} onPress={likePost} color="red" />
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 0,
   },
   profileImage: {
-    height: 25,
+    height: 55,
     width: 25,
     borderRadius: 100,
     flex: 1

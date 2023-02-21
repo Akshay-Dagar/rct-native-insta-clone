@@ -1,10 +1,11 @@
 import React from 'react'
 import { Text, View, StyleSheet, Image } from 'react-native'
+import { profileImageRandomizer } from '../../utils'
 
 const Comment = ({text, userId}) => {
   return (
     <View style={styles.container}>
-        <Image source={require('../../assets/favicon.png')} style={styles.profileImage}/>
+        <Image source={profileImageRandomizer()} style={styles.profileImage}/>
         <View style={styles.metaContainer}>
           <Text style={{fontSize: 12, fontStyle: 'italic'}}>{userId}</Text>
           <Text style={{fontSize: 18, paddingRight: 20}}>{text}</Text>

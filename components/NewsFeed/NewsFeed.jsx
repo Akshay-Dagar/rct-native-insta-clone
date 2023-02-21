@@ -21,7 +21,7 @@ const NewsFeed = ({navigation}) => {
           {newsfeed?.map((post, idx) => (
             <View>
               <PostThumb post={post} key={`post-${idx}0dwdwd`} navigation={navigation}/>
-              <PostThumb post={post} key={`post-${idx}1wdwd`} navigation={navigation}/>
+              {/* <PostThumb post={post} key={`post-${idx}1wdwd`} navigation={navigation}/> */}
             </View>
           ))}
           {!newsfeed && <ActivityIndicator size={50} color="#000" style={styles.spinner} />}

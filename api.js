@@ -1,9 +1,7 @@
 import { setUser, userFetchEnd } from "./reducers/user"
 import { setNewsFeed } from "./reducers/newsfeed"
-import { setMessage } from './reducers/message'
 import { setPosts } from './reducers/posts'
 import { addComment, setComments } from './reducers/comments'
-import { ToastAndroid } from 'react-native';
 import { showToast } from "./utils"
 
 const endpoint = "http://192.168.29.142:5000/api"
@@ -87,7 +85,7 @@ const getNewsFeed = () => async dispatch => {
         }
     }
     catch (err) {
-        dispatch(setMessage({value: "Failed to get posts - Something went wrong", type: "Error"}))
+        showToast("Failed to fetch posts, something went wrong")
     }
 }
 

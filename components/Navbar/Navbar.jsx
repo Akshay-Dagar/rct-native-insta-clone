@@ -14,7 +14,7 @@ const EmptyScreen = () => {
 const Navbar = () => {
   const user = useSelector(state => state.user.value)
   return (
-    <Tab.Navigator initialRouteName="NewsFeed" labeled={false} shifting={false} inactiveColor="#fff" barStyle={{ backgroundColor: '#000' }} >
+    <Tab.Navigator initialRouteName="NewsFeed" labeled={false} shifting={false} inactiveColor="#fff" activeColor='#f2eecb' barStyle={{ backgroundColor: '#5675e3' }} >
         <Tab.Screen 
           name="WrapCreatePost" 
           component={EmptyScreen}
