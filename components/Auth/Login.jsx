@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, TextInput, Text, StyleSheet } from 'react-native'
+import { View, TextInput, Text, StyleSheet, Image, ImageBackground } from 'react-native'
 import { Button } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
 import api from '../../api'
@@ -16,7 +16,9 @@ const Login = ({navigation}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={require('../../assets/background.jpg')} style={{flex: 1}} resizeMode="repeat">
+      <View style={styles.container}>
+        <Image source={require('../../assets/instagram.png')} style={styles.logo} />
         <TextInput 
           placeholder='username' 
           onChangeText={txt => setFormData({...formData, userId: txt})} 
@@ -42,7 +44,8 @@ const Login = ({navigation}) => {
         <Button onPress={() => navigation.navigate("Signup")} style={styles.button}>
           <Text style={styles.buttonText}>SIGN UP</Text>
         </Button>
-    </View>
+      </View>
+    </ImageBackground>
   )
 }
 
@@ -53,6 +56,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  logo: {
+    height: 150,
+    width: 150,
+    marginVertical: 20
   },
   input: {
     height: 50,
@@ -68,7 +76,7 @@ const styles = StyleSheet.create({
     borderRadius: 5, 
     marginVertical: 20,
     alignSelf: 'center',
-    backgroundColor: '#53cdfc',
+    backgroundColor: '#24a0ed',
   },
   disabledButton: {
     height: 48,
@@ -76,14 +84,14 @@ const styles = StyleSheet.create({
     borderRadius: 5, 
     marginVertical: 20,
     alignSelf: 'center',
-    backgroundColor: '#d3d3d3',
+    backgroundColor: '#cccccc',
   },
   seperator: {
     fontStyle: 'italic',
     marginVertical: 20,
     fontSize: 15,
     fontWeight:'100',
-    color: 'rgba(0,0,0,0.2)'
+    color: 'rgba(0,0,0,0.3)'
   },
   buttonText: {
     color: 'white',

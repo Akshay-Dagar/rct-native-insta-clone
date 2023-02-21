@@ -26,7 +26,7 @@ const Navbar = () => {
           })}
           options={{tabBarIcon: props => (<Icon name="plus" size={30} color={props.color}/>)}}
         />
-        <Tab.Screen name="NewsFeed" component={NewsFeed} options={{tabBarIcon: props => (<Icon name="home" size={30} color={props.color}/>)}} />
+        <Tab.Screen name="NewsFeed" component={NewsFeed} options={{tabBarIcon: props => (<Icon name="home" size={30} color={props.color} />)}} />
         <Tab.Screen name="Profile" component={Profile} initialParams={{selectedUserId: user.userId}} options={{tabBarIcon: props => (<Icon name="user" size={30} color={props.color}/>)}} />
     </Tab.Navigator>
   )

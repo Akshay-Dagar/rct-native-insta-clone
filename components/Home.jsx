@@ -38,8 +38,8 @@ const Home = () => {
       <NavigationContainer>
         <Stack.Navigator initialRouteName='Navbar'>
           <Stack.Screen name='Navbar' component={Navbar} options={{headerShown: false}} />
-          <Stack.Screen name='Capture' component={CaptureImage} />
-          <Stack.Screen name='Create Post' component={CreatePost} />
+          <Stack.Screen name='Capture' component={CaptureImage} options={{title: 'Capture'}} />
+          <Stack.Screen name='Create Post' component={CreatePost} options={{title: 'New Post'}} />
           <Stack.Screen name='Profile' component={Profile} />
           <Stack.Screen name='Post' component={Post} />
         </Stack.Navigator>

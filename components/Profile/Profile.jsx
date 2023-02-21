@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
-import { Text, StyleSheet, FlatList, Image, View, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native'
+import { Text, StyleSheet, FlatList, Image, View, TouchableOpacity, ActivityIndicator, ScrollView, ImageBackground } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import api from '../../api'
+import Header from '../Header'
 
 const Profile = ({route, navigation}) => {
   const userPosts = useSelector(state => state.posts.value)
@@ -15,75 +16,88 @@ const Profile = ({route, navigation}) => {
   
   
   return (
-    <ScrollView styles={styles.container}>
-      <View styles={styles.detailsContainer}>
-        <Image source={require('../../assets/favicon.png')} style={styles.profileImage}/>
-        <Text style={{fontSize: 30, fontStyle: 'italic', alignSelf: 'center'}}>{selectedUserId}</Text>
-        <Text style={{fontSize: 15, alignSelf: 'center'}}>1.2K Followers</Text>
-      </View>
-      {!userPosts && <ActivityIndicator size={50} color="#000" style={styles.spinner} />}
-      {userPosts && <Text style={{borderColor: 'rgba(0, 0, 0, 0.08)', borderTopWidth: 1, marginTop: 40}} />}
-      {userPosts && <Text style={styles.postsHeader}>Posts</Text>}
-      <FlatList 
-        numColumns={3}
-        horizontal={false}
-        data={userPosts}
-        style={styles.userPostsContainer}
-        renderItem={({item}) => {
-          return (
-            <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
-              <TouchableOpacity
-                onPress={() => {navigation.navigate("Post", {post: item})}}
-              >
-                <Image 
-                  source={{uri: item.image}}
-                  style={styles.thumb}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {navigation.navigate("Post", {post: item})}}
-              >
-                <Image 
-                  source={{uri: item.image}}
-                  style={styles.thumb}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {navigation.navigate("Post", {post: item})}}
-              >
-                <Image 
-                  source={{uri: item.image}}
-                  style={styles.thumb}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {navigation.navigate("Post", {post: item})}}
-              >
-                <Image 
-                  source={{uri: item.image}}
-                  style={styles.thumb}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {navigation.navigate("Post", {post: item})}}
-              >
-                <Image 
-                  source={{uri: item.image}}
-                  style={styles.thumb}
-                />
-              </TouchableOpacity>
-            </View>
-            
-          )
-        }}
-      >
-      </FlatList>
-    </ScrollView>
+    <ImageBackground source={require('../../assets/background.jpg')} style={{flex: 1}} resizeMode="repeat">
+
+    <View style={styles.container}>
+      <Header />
+      <ScrollView styles={styles.contentContainer}>
+        <View styles={styles.detailsContainer}>
+          <Image source={require('../../assets/favicon.png')} style={styles.profileImage}/>
+          <Text style={{fontSize: 30, fontStyle: 'italic', alignSelf: 'center'}}>{selectedUserId}</Text>
+          <Text style={{fontSize: 15, alignSelf: 'center'}}>1.2K Followers</Text>
+        </View>
+        {!userPosts && <ActivityIndicator size={50} color="#000" style={styles.spinner} />}
+        {userPosts && <Text style={{borderColor: 'rgba(0, 0, 0, 0.08)', borderTopWidth: 1, marginTop: 40}} />}
+        {userPosts && <Text style={styles.postsHeader}>Posts</Text>}
+        <FlatList 
+          numColumns={3}
+          horizontal={false}
+          data={userPosts}
+          style={styles.userPostsContainer}
+          renderItem={({item}) => {
+            return (
+              <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+                <TouchableOpacity
+                  onPress={() => {navigation.navigate("Post", {post: item})}}
+                >
+                  <Image 
+                    source={{uri: item.image}}
+                    style={styles.thumb}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {navigation.navigate("Post", {post: item})}}
+                >
+                  <Image 
+                    source={{uri: item.image}}
+                    style={styles.thumb}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {navigation.navigate("Post", {post: item})}}
+                >
+                  <Image 
+                    source={{uri: item.image}}
+                    style={styles.thumb}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {navigation.navigate("Post", {post: item})}}
+                >
+                  <Image 
+                    source={{uri: item.image}}
+                    style={styles.thumb}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {navigation.navigate("Post", {post: item})}}
+                >
+                  <Image 
+                    source={{uri: item.image}}
+                    style={styles.thumb}
+                  />
+                </TouchableOpacity>
+              </View>
+              
+            )
+          }}
+        >
+        </FlatList>
+      </ScrollView>
+    </View>
+    </ImageBackground>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  contentContainer: {
+    alignItems: 'center',
+  },
   thumb: {
     height: 100,
     width: 100,

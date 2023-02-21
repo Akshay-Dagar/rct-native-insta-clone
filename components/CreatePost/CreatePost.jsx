@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Image, TextInput, Button, StyleSheet, Text } from 'react-native'
+import { View, Image, TextInput, Button, StyleSheet, Text, ImageBackground } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import api from '../../api'
 import { imgToBase64 } from '../../utils'
@@ -13,10 +13,11 @@ const CreatePost = ({route, navigation}) => {
   const handleSubmit = async () => {
     const base64Img = await imgToBase64(route.params.imgUrl)
     dispatch(api.createPost({...formData, image: base64Img, userId: userId}))
-    navigation.navigate('Profile', {selectedUserId: userId})
+    navigation.popToTop()
   }
 
   return (
+    <ImageBackground source={require('../../assets/background.jpg')} style={{flex: 1}} resizeMode="repeat">
     <View style={styles.container}>
         <Image source={{uri: route.params.imgUrl}} style={styles.image} />
         <TextInput 
@@ -37,6 +38,7 @@ const CreatePost = ({route, navigation}) => {
         ))} */}
         <Button title="Create Post" onPress={handleSubmit} disabled={!formData || formData.caption==="" }/>
     </View>
+    </ImageBackground>
   )
 }
 

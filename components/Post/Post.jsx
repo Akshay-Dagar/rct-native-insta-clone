@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Text, TextInput, FlatList, ScrollView, Image, StyleSheet, View } from 'react-native'
+import { Button, Text, TextInput, FlatList, ScrollView, Image, StyleSheet, View, ImageBackground } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import api from '../../api'
 import Comment from './Comment'
@@ -30,6 +30,7 @@ const Post = ({route}) => {
   }
 
   return (
+    <ImageBackground source={require('../../assets/background.jpg')} style={{flex: 1}} resizeMode="repeat">
     <ScrollView>
         <View style={styles.postContainer}>
           <Image source={{uri: post.image}} style={styles.image}/>
@@ -43,11 +44,11 @@ const Post = ({route}) => {
           </View>
         </View>
         <View style={styles.commentsContainer}>
-          <Text style={{borderColor: 'rgba(0, 0, 0, 0.08)', borderTopWidth: 1, marginVertical: 10}}></Text>
-          <Text style={{fontSize: 30, marginLeft: 10}}>Comments</Text>
+          <Text style={{borderColor: 'rgba(0, 0, 0, 1)', borderTopWidth: 1, marginVertical: 10}}></Text>
+          <Text style={{fontSize: 20, marginLeft: 10}}>Comments</Text>
           <View style={styles.addCommentContainer}>
             <TextInput placeholder='Add Comment...' onChangeText={txt => setComment(txt)} multiline style={styles.commentInputBox}/>
-            <Button title='Add' onPress={addComment} disabled={comment === ""}/>
+            <Button title='Add' onPress={addComment} disabled={comment === ""} />
           </View>
           <FlatList 
               numColumns={1}
@@ -63,6 +64,7 @@ const Post = ({route}) => {
         </View>
         
     </ScrollView>
+    </ImageBackground>
   )
 }
 
@@ -102,7 +104,8 @@ const styles = StyleSheet.create({
     height: 100, 
     backgroundColor: '#fcfcfc', 
     borderRadius: 10, 
-    marginVertical: 20
+    marginVertical: 20,
+    padding: 10
   }
 })
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, TextInput, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, TextInput, Text, StyleSheet, ScrollView, Image, ImageBackground } from 'react-native'
 import { Button } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
 import api from '../../api'
@@ -16,43 +16,46 @@ const Signup = ({navigation}) => {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-        <TextInput 
-          placeholder='username' 
-          onChangeText={txt => setFormData({...formData, userId: txt})}
-          style={styles.input}
-        />
-        <TextInput 
-            placeholder='password' 
-            onChangeText={txt => setFormData({...formData, password: txt})} 
-            secureTextEntry
+    <ImageBackground source={require('../../assets/background.jpg')} style={{flex: 1}} resizeMode="repeat">
+      <ScrollView contentContainerStyle={styles.container}>
+          <Image source={require('../../assets/instagram.png')} style={styles.logo} />
+          <TextInput 
+            placeholder='username' 
+            onChangeText={txt => setFormData({...formData, userId: txt})}
             style={styles.input}
-        />     
-        <TextInput 
-            placeholder='re-enter password' 
-            onChangeText={txt => setIsValidPassword(txt === formData.password)} 
-            secureTextEntry
-            style={styles.input}
-        />
-        {!isValidPassword && <Text style={styles.invalidLabel}>Passwords don't match</Text>}
-        <Button 
-          onPress={handleSubmit} 
-          disabled={!isValidPassword || formData.userId === "" || formData.password === ""}
-          style={!isValidPassword || formData.userId === "" || formData.password === "" ? styles.disabledButton : styles.button}
-        >
-          <Text style={styles.buttonText}>SIGN UP</Text>
-        </Button>
-        <Text 
-          style={styles.seperator}>
-            -----------------------------------    or    -----------------------------------
-        </Text>
-        <Button 
-          onPress={() => navigation.navigate("Login")} 
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>LOGIN</Text>
-        </Button>
-    </ScrollView>
+          />
+          <TextInput 
+              placeholder='password' 
+              onChangeText={txt => setFormData({...formData, password: txt})} 
+              secureTextEntry
+              style={styles.input}
+          />     
+          <TextInput 
+              placeholder='re-enter password' 
+              onChangeText={txt => setIsValidPassword(txt === formData.password)} 
+              secureTextEntry
+              style={styles.input}
+          />
+          {!isValidPassword && <Text style={styles.invalidLabel}>Passwords don't match</Text>}
+          <Button 
+            onPress={handleSubmit} 
+            disabled={!isValidPassword || formData.userId === "" || formData.password === ""}
+            style={!isValidPassword || formData.userId === "" || formData.password === "" ? styles.disabledButton : styles.button}
+          >
+            <Text style={styles.buttonText}>SIGN UP</Text>
+          </Button>
+          <Text 
+            style={styles.seperator}>
+              -----------------------------------    or    -----------------------------------
+          </Text>
+          <Button 
+            onPress={() => navigation.navigate("Login")} 
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>LOGIN</Text>
+          </Button>
+      </ScrollView>
+    </ImageBackground>
   )
 }
 
@@ -63,6 +66,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  logo: {
+    height: 120,
+    width: 120,
+    marginVertical: 20
   },
   input: {
     height: 50,
@@ -78,7 +86,7 @@ const styles = StyleSheet.create({
     borderRadius: 5, 
     marginVertical: 20,
     alignSelf: 'center',
-    backgroundColor: '#53cdfc',
+    backgroundColor: '#24a0ed',
   },
   disabledButton: {
     height: 48,
@@ -86,7 +94,7 @@ const styles = StyleSheet.create({
     borderRadius: 5, 
     marginVertical: 20,
     alignSelf: 'center',
-    backgroundColor: '#d3d3d3',
+    backgroundColor: '#cccccc',
   },
   seperator: {
     fontStyle: 'italic',
