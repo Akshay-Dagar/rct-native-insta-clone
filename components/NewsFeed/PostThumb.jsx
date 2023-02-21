@@ -6,10 +6,12 @@ import api from '../../api'
 
 const PostThumb = ({post, navigation}) => {
   const [likes, setLikes] = useState(post.likes)
+  const [liked, setLiked] = useState(false)
   const dispatch = useDispatch()
 
   const likePost = () => {
     setLikes(likes+1)
+    setLiked(true)
     dispatch(api.likePost(post._id))
   }
 
@@ -20,9 +22,9 @@ const PostThumb = ({post, navigation}) => {
       </TouchableOpacity>
       <View style={styles.details}>
         <Image source={require('../../assets/favicon.png')} style={styles.profileImage}/>
-        <Text>{post.caption}</Text>
+        <Text style={styles.caption}>{post.caption}</Text>
         <View style={styles.likes}>
-          <Icon name="heart-outline" size={25} onPress={likePost}/>
+          <Icon name={liked ? "heart" : "heart-outline"} size={25} onPress={likePost} color="red" />
           <Text style={styles.likeCount}>{likes}</Text>
         </View>
       </View>
@@ -35,29 +37,45 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   details: {
-    marginVertical: 10,
-    marginHorizontal: 3,
+    marginBottom: 10,
+    marginHorizontal: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    backgroundColor: 'white',
+    height: 90,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+    borderRadius: 20
   },
   likes: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flex: 1
   },
   likeCount: {
     fontSize: 19,
-    marginLeft: 5
+    marginLeft: 5,
+    color: 'red'
   },
   thumb: {
     height: 300,
-    width: 320,
-    borderRadius: 20
+    width: 350,
+    borderRadius: 20,
+    borderBottomRightRadius: 0,
+    borderBottomLeftRadius: 0,
   },
   profileImage: {
-    height: 30,
-    width: 30,
-    borderRadius: 100
+    height: 25,
+    width: 25,
+    borderRadius: 100,
+    flex: 1
+  },
+  caption: {
+    flexWrap: 'wrap',
+    flex: 4, 
+    marginHorizontal: 10,
+    fontWeight: '600'
   }
 })
 

@@ -10,6 +10,7 @@ const Post = ({route}) => {
 
   const [comment, setComment] = useState("")
   const [likes, setLikes] = useState(post.likes)
+  const [liked, setLiked] = useState(false)
   const comments = useSelector(state => state.comments.value)
   const user = useSelector(state => state.user.value)
   const dispatch = useDispatch()
@@ -17,6 +18,7 @@ const Post = ({route}) => {
 
   const likePost = () => {
     setLikes(likes+1)
+    setLiked(true)
     dispatch(api.likePost(post._id))
   }
 
@@ -36,15 +38,14 @@ const Post = ({route}) => {
           <Image source={{uri: post.image}} style={styles.image}/>
           <View style={styles.details}>
             <Image source={require('../../assets/favicon.png')} style={styles.profileImage}/>
-            <Text>{post.caption}</Text>
+            <Text style={styles.caption}>{post.caption}</Text>
             <View style={styles.likes}>
-              <Icon name="heart-outline" size={25} onPress={likePost}/>
+              <Icon name={liked ? "heart" : "heart-outline"} size={25} onPress={likePost} color="red" />
               <Text style={styles.likeCount}>{likes}</Text>
             </View>
           </View>
         </View>
         <View style={styles.commentsContainer}>
-          <Text style={{borderColor: 'rgba(0, 0, 0, 1)', borderTopWidth: 1, marginVertical: 10}}></Text>
           <Text style={{fontSize: 20, marginLeft: 10}}>Comments</Text>
           <View style={styles.addCommentContainer}>
             <TextInput placeholder='Add Comment...' onChangeText={txt => setComment(txt)} multiline style={styles.commentInputBox}/>
@@ -54,9 +55,10 @@ const Post = ({route}) => {
               numColumns={1}
               horizontal={false}
               data={comments}
+              style={{marginVertical: 5, marginHorizontal: 10}}
               renderItem={({item}) => (
                 <View>
-                  <Text style={{borderColor: 'rgba(0, 0, 0, 0.08)', borderTopWidth: 1, marginVertical: 10}}></Text>
+                  {/* <Text style={{borderColor: 'rgba(0, 0, 0, 0.08)', borderTopWidth: 1, marginVertical: 10}}></Text> */}
                   <Comment text={item.text} userId={item.userId}/>
                 </View>
               )}
@@ -79,16 +81,21 @@ const styles = StyleSheet.create({
     resizeMode: 'cover'
   },
   details: {
-    marginVertical: 30,
-    marginHorizontal: 10,
+    marginBottom: 20,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    backgroundColor: 'white',
+    height: 90,
+    width: '100%',
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20
   },
   likes: {
     display: 'flex',
     flexDirection: 'row',
+    flex: 1
   },
   likeCount: {
     fontSize: 19,
@@ -103,9 +110,23 @@ const styles = StyleSheet.create({
   commentInputBox: {
     height: 100, 
     backgroundColor: '#fcfcfc', 
-    borderRadius: 10, 
-    marginVertical: 20,
+    borderTopLeftRadius: 10, 
+    borderTopRightRadius: 10,
+    marginTop: 20,
     padding: 10
+  },
+  caption: {
+    flexWrap: 'wrap',
+    flex: 4, 
+    marginHorizontal: 10,
+    fontWeight: '600'
+  },
+  profileImage: {
+    height: 25,
+    width: 25,
+    borderRadius: 100,
+    flex: 1,
+    marginLeft: 7
   }
 })
 

@@ -53,30 +53,6 @@ const Profile = ({route, navigation}) => {
                     style={styles.thumb}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {navigation.navigate("Post", {post: item})}}
-                >
-                  <Image 
-                    source={{uri: item.image}}
-                    style={styles.thumb}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {navigation.navigate("Post", {post: item})}}
-                >
-                  <Image 
-                    source={{uri: item.image}}
-                    style={styles.thumb}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {navigation.navigate("Post", {post: item})}}
-                >
-                  <Image 
-                    source={{uri: item.image}}
-                    style={styles.thumb}
-                  />
-                </TouchableOpacity>
               </View>
               
             )

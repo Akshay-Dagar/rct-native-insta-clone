@@ -22,9 +22,6 @@ const NewsFeed = ({navigation}) => {
             <View>
               <PostThumb post={post} key={`post-${idx}0dwdwd`} navigation={navigation}/>
               <PostThumb post={post} key={`post-${idx}1wdwd`} navigation={navigation}/>
-              <PostThumb post={post} key={`post-${idx}2wdwdd`} navigation={navigation}/>
-              <PostThumb post={post} key={`post-${idx}3qwq`} navigation={navigation}/>
-              <PostThumb post={post} key={`post-${idx}4kukuk`} navigation={navigation}/>
             </View>
           ))}
           {!newsfeed && <ActivityIndicator size={50} color="#000" style={styles.spinner} />}
@@ -39,9 +36,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
-    backgroundImage: 'url("../../assets/background2.jpg")',
-    backgroundSize: '100% 100%'
+    alignItems: 'center'
   },
   contentContainer: {
     alignItems: 'center',

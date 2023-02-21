@@ -99,13 +99,13 @@ const getPosts = (userId = undefined) => async dispatch => {
     
         const data = await res.json()
         if (res.status === 200) {
-            dispatch(setPosts([data]))
+            dispatch(setPosts(data))
         } else {
             throw res.status
         }
     }
     catch (err) {
-        dispatch(setMessage({value: "Failed to get posts - Something went wrong", type: "Error"}))
+        showToast("Failed to fetch posts")
     }
 }
 
@@ -121,13 +121,13 @@ const createPost = post => async dispatch => {
     
         const data = await res.json()
         if (res.status === 201) {
-            dispatch(setMessage({value: "Success!!! Your post has been created", type: "Success"}))
+            showToast("Post created succesfully")
         } else {
             throw res.status
         }
     }
     catch (err) {
-        dispatch(setMessage({value: "Failed to create post - Something went wrong", type: "Error"}))
+        showToast("Failed to create posts")
     }
 }
 
@@ -145,7 +145,7 @@ const getComments = postId => async dispatch => {
         }
     }
     catch (err) {
-        dispatch(setMessage({value: "Failed to get comments - Something went wrong", type: "Error"}))
+        showToast("Failed to retrieve comments for this post")
     }
 }
 
@@ -162,12 +162,13 @@ const createComment = comment => async dispatch => {
         const data = await res.json()
         if (res.status === 201) {
             dispatch(addComment(data))
+            showToast("Comment added succesfully")
         } else {
             throw res.status
         }
     }
     catch (err) {
-        dispatch(setMessage({value: "Failed to create comment - Something went wrong", type: "Error"}))
+        showToast("Failed to add comment for this post")
     }
 }
 
@@ -182,7 +183,7 @@ const likePost = postId => async dispatch => {
         }
     }
     catch (err) {
-        dispatch(setMessage({value: "Failed to like post - Something went wrong", type: "Error"}))
+        showToast("Failed to like post")
     }
 }
 

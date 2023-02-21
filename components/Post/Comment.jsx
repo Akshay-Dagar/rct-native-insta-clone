@@ -17,9 +17,13 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    marginHorizontal: 10,
-    marginVertical: 20,
-    marginRight: 80
+    marginVertical: 3,
+    marginRight: 80,
+    backgroundColor: 'white',
+    width: '100%',
+    padding: 10,
+    minHeight: 80,
+    borderRadius: 10
   },
   metaContainer: {
     display: 'flex',
