@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
     height: 90,
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
-    borderRadius: 20
+    borderRadius: 20,
+    width: 350,
   },
   likes: {
     display: 'flex',

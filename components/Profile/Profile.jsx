@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Text, StyleSheet, FlatList, Image, View, TouchableOpacity, ActivityIndicator, ScrollView, ImageBackground } from 'react-native'
+import { RefreshControl, Text, StyleSheet, FlatList, Image, View, TouchableOpacity, ActivityIndicator, ScrollView, ImageBackground } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import api from '../../api'
 // import { setBackground } from '../../reducers/background'
@@ -8,10 +8,17 @@ import Header from '../Header'
 
 const Profile = ({route, navigation}) => {
   const userPosts = useSelector(state => state.posts.value)
-  const background = useSelector(state => state.background.value)
+  // const background = useSelector(state => state.background.value)
+  const [refreshing, setRefreshing] = React.useState(false);
   const dispatch = useDispatch()
 
   const selectedUserId = route.params.selectedUserId
+
+  const onRefresh = () => {
+    setRefreshing(true)
+    dispatch(api.getPosts(selectedUserId))
+    setRefreshing(false)
+  }
 
   useEffect(() => {
     dispatch(api.getPosts(selectedUserId))
@@ -27,7 +34,11 @@ const Profile = ({route, navigation}) => {
 
     <View style={styles.container}>
       <Header />
-      <ScrollView styles={styles.contentContainer}>
+      <ScrollView 
+        styles={styles.contentContainer} 
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <View styles={styles.detailsContainer}>
           <Image source={profileImageRandomizer()} style={styles.profileImage}/>
           <Text style={{fontSize: 30, fontStyle: 'italic', alignSelf: 'center'}}>{selectedUserId}</Text>
@@ -51,14 +62,6 @@ const Profile = ({route, navigation}) => {
           renderItem={({item}) => {
             return (
               <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
-                <TouchableOpacity
-                  onPress={() => {navigation.navigate("Post", {post: item})}}
-                >
-                  <Image 
-                    source={{uri: item.image}}
-                    style={styles.thumb}
-                  />
-                </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {navigation.navigate("Post", {post: item})}}
                 >
@@ -94,7 +97,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginHorizontal: 10,
     marginVertical: 10,
-    resizeMode: 'contain'
+    resizeMode: 'contain',
+    backgroundColor: 'black'
   },
   profileImage: {
     borderRadius: 100,

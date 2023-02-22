@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity, Button, StyleSheet, ImagePickerIOS } from 'react-native';
+import { Text, View, TouchableOpacity, Button, StyleSheet, ImagePickerIOS, ActivityIndicator } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useWindowDimensions } from "react-native";
+import { showToast } from '../../utils';
 
 export default function CaptureImage({navigation}) {
   const [hasCamPermission, setHasCamPermission] = useState(null);
 
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [cam, setCam] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const {width} = useWindowDimensions();
 
   const capture = async () => {
     if (cam) {
-      const image = await cam.takePictureAsync(null)
-      const imgUrl = image.uri
-      navigation.navigate("Create Post", {imgUrl})
+      try {
+        const image = await cam.takePictureAsync(null)
+        const imgUrl = image.uri
+        navigation.navigate("Create Post", {imgUrl})
+      }
+      catch {
+        showToast("Failed to capture image, something went wrong")
+      }
     }
   }
 
@@ -41,6 +48,10 @@ export default function CaptureImage({navigation}) {
       setHasCamPermission(camPermission.status === 'granted');
     })();
   }, []);
+
+  if (loading) {
+    return <ActivityIndicator size={50} color="#000" style={{alignSelf: 'center', marginTop: 150}} />
+  }
 
   if (hasCamPermission === null) {
     return <View />;

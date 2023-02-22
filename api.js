@@ -26,7 +26,7 @@ const ping = async () => {
 // Login
 const login = userData => async dispatch => {
     try {
-        const url = `${endpoint}/login`
+        const url = `${endpoint}/auth/login`
 
         const res = await fetch(url, {
             method: 'POST',
@@ -50,7 +50,7 @@ const login = userData => async dispatch => {
 // Signup
 const signup = userData => async dispatch => {
     try {
-        const url = `${endpoint}/signup`
+        const url = `${endpoint}/auth/signup`
 
         const res = await fetch(url, {
             method: 'POST',
