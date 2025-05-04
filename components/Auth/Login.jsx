@@ -18,7 +18,7 @@ const Login = ({navigation}) => {
   return (
     <ImageBackground source={require('../../assets/background.jpg')} style={{flex: 1}} resizeMode="repeat">
       <View style={styles.container}>
-        <Image source={require('../../assets/instagram.png')} style={styles.logo} />
+        <Image source={require('../../assets/srmlogo.png')} style={styles.logo} />
         <TextInput 
           placeholder='username' 
           onChangeText={txt => setFormData({...formData, userId: txt})} 

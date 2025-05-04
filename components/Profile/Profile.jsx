@@ -42,7 +42,7 @@ const Profile = ({route, navigation}) => {
         <View styles={styles.detailsContainer}>
           <Image source={profileImageRandomizer()} style={styles.profileImage}/>
           <Text style={{fontSize: 30, fontStyle: 'italic', alignSelf: 'center'}}>{selectedUserId}</Text>
-          <Text style={{fontSize: 15, alignSelf: 'center'}}>{(Math.random() * 4 + 1).toFixed(2)}K Followers</Text>
+          <Text style={{fontSize: 15, alignSelf: 'center'}}>{(Math.random() * 4 + 1).toFixed(2)}K Orders</Text>
         </View>
         {/* <View style={styles.bgpicker}>
           {Array.from(Array(7)).map((_, i) => 
@@ -53,7 +53,7 @@ const Profile = ({route, navigation}) => {
         </View> */}
         {!userPosts && <ActivityIndicator size={50} color="#000" style={styles.spinner} />}
         {userPosts && <Text style={{borderColor: 'rgba(0, 0, 0, 0.08)', borderTopWidth: 1, marginTop: 40}} />}
-        {userPosts && <Text style={styles.postsHeader}>Posts</Text>}
+        {userPosts && <Text style={styles.postsHeader}>Orders</Text>}
         <FlatList 
           numColumns={3}
           horizontal={false}
