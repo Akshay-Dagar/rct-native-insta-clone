@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Image } from 'react-native'
 const Header = () => {
   return (
     <View style={styles.headerContainer}>
-        <Image source={require('../assets/instagram.png')} style={styles.logo} />
+        <Image source={require('../assets/srmlogo.png')} style={styles.logo} />
         <Image source={require('../assets/instatext.svg')} style={styles.headerImage} />
     </View>
   )
